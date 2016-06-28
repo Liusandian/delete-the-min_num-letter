@@ -1,0 +1,52 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string>
+#include<malloc.h>
+using namespace std;
+int main()
+{
+	char *str;
+	str=(char *)malloc(128);
+	cin.get(str,128,'\n');
+	cout<<Delete_Char(str)<<endl;
+	free(str);
+	return 0;
+}
+
+string Delete_Char(char *pStr)
+{
+//////////////删除出现个数最少的字符//////////////////////////
+	int n,temp=256,i,j;
+	unsigned char k;
+	char *p=pStr;
+	n=strlen(pStr);
+	int a[256]={0};
+	int con=256;
+	if (n==0)
+		return "";
+	for (i=0;i<n;i++)
+	{
+		a[p[i]]++;
+	}
+	for (j=0;j<256;j++)
+	{
+		if(a[j]<temp&&a[j]>0) temp=a[j];
+	}
+	if(temp==0) return "";
+	for (k=0;k<255;k++)
+	{
+		if(a[k]==temp)
+		{
+           	for (i=0;i<n;i++)
+			{
+	        	if(p[i]==k)
+				{
+                for (j=i;j<n;j++) 
+                     p[j]=p[j+1];
+					 i--;
+				}
+			}
+		}
+	}
+	return p;
+}
